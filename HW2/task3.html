@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="css/myCSS.css">
+    <style>
+
+
+        .clearfix::after {
+
+            display: table;
+        }
+
+        .header{
+            position: relative;
+            padding-left: 35%;
+        }
+
+        .column {
+            float: left;
+
+        }
+
+        .menu {
+            width: 33%;
+        }
+
+        .content {
+            width: 67%;
+        }
+
+        .link{
+            padding-bottom: 15%;
+        }
+
+        a:link {
+            color: black;
+        }
+
+        /* mouse over link */
+        .tag:hover {
+            color: green;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        #beercontent {
+            display: none;
+        }
+        #LTcontent {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div class="clearfix">
+<h1 class="header">HW03 Task Three</h1>
+
+<div class="column menu">
+    <ul>
+        <li class='link'><a href="#" class ='tag' id="LI">Lorem Ipsem</a></li>
+        <li class='link'><a href="#" class ='tag' id="beer">99 Bottles</a></li>
+        <li class='link'><a href="#" class ='tag' id="LT">Last Thing</a></li>
+    </ul>
+</div>
+
+<div class="column content">
+    <div id="LIcontent">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod nisi porta lorem mollis aliquam ut. Amet consectetur adipiscing elit pellentesque habitant morbi tristique. In mollis nunc sed id semper risus in hendrerit gravida. Tempor nec feugiat nisl pretium fusce id. Quam id leo in vitae turpis massa sed elementum tempus. Dictum non consectetur a erat nam at lectus urna duis. Aliquet sagittis id consectetur purus ut faucibus pulvinar elementum integer. Nunc sed velit dignissim sodales ut eu sem integer. Sed tempus urna et pharetra pharetra massa massa ultricies. Dui vivamus arcu felis bibendum ut tristique et egestas quis. Sodales ut eu sem integer vitae justo. Dolor morbi non arcu risus quis varius quam. Id porta nibh venenatis cras sed. Sed felis eget velit aliquet sagittis id consectetur purus. Ut venenatis tellus in metus vulputate. Pellentesque diam volutpat commodo sed. Dignissim diam quis enim lobortis.</p>
+        <p>Tempor orci eu lobortis elementum. Non consectetur a erat nam at. Amet nisl purus in mollis nunc. Ornare lectus sit amet est. Bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim. Netus et malesuada fames ac turpis egestas maecenas pharetra. Turpis cursus in hac habitasse platea dictumst quisque sagittis. Erat pellentesque adipiscing commodo elit at imperdiet. Enim ut sem viverra aliquet. Magna fringilla urna porttitor rhoncus. Eget duis at tellus at urna. Etiam sit amet nisl purus in. Est ultricies integer quis auctor elit sed vulputate.</p>
+    <p>Est placerat in egestas erat imperdiet sed. Neque gravida in fermentum et sollicitudin ac orci. Congue quisque egestas diam in arcu cursus. Iaculis eu non diam phasellus. Lacus laoreet non curabitur gravida arcu ac. Maecenas accumsan lacus vel facilisis volutpat est. Urna cursus eget nunc scelerisque viverra mauris in. Sed pulvinar proin gravida hendrerit lectus a. Id porta nibh venenatis cras sed felis. Aliquet risus feugiat in ante metus dictum at tempor commodo. Velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Duis ultricies lacus sed turpis tincidunt id aliquet. Eu nisl nunc mi ipsum faucibus vitae aliquet. Eget dolor morbi non arcu. Aliquet risus feugiat in ante metus. Posuere morbi leo urna molestie at elementum eu facilisis sed. Augue neque gravida in fermentum et sollicitudin ac orci. Vel orci porta non pulvinar neque laoreet suspendisse interdum. Ut lectus arcu bibendum at varius vel pharetra vel.</p>
+    <p>Aenean euismod elementum nisi quis. Neque vitae tempus quam pellentesque. Amet est placerat in egestas. Nec dui nunc mattis enim ut tellus elementum. Duis at tellus at urna condimentum. Ornare quam viverra orci sagittis eu. Donec adipiscing tristique risus nec feugiat. Eget est lorem ipsum dolor. Vitae turpis massa sed elementum tempus egestas sed sed. Magna fermentum iaculis eu non diam. Amet consectetur adipiscing elit duis tristique sollicitudin. Id volutpat lacus laoreet non curabitur gravida. Orci dapibus ultrices in iaculis nunc sed augue lacus. Turpis massa sed elementum tempus egestas sed sed risus. Amet aliquam id diam maecenas ultricies mi eget mauris pharetra. Odio pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus. In aliquam sem fringilla ut morbi tincidunt augue interdum velit.</p>
+    </div>
+
+    <div id="beercontent">
+        <p>99 bottles of beer on the wall, 99 bottles of beer.
+            Take one down and pass it around, 98 bottles of beer on the wall.</p>
+        <p>98 bottles of beer on the wall, 98 bottles of beer.
+            Take one down and pass it around, 97 bottles of beer on the wall.</p>
+        <p>97 bottles of beer on the wall, 97 bottles of beer.
+            Take one down and pass it around, 96 bottles of beer on the wall.</p>
+        <p>96 bottles of beer on the wall, 96 bottles of beer.
+            Take one down and pass it around, 95 bottles of beer on the wall.</p>
+    </div>
+
+<div id ="LTcontent">
+    <p>this is the third thing</p>
+</div>
+</div>
+
+
+
+</div>
+</body>
+<script>
+
+    a1 = document.getElementById("LI");
+    a1.onclick  = hideBeerLT;
+
+    a2 = document.getElementById("beer");
+    a2.onclick  = hideLILT;
+
+    a3 = document.getElementById("LT");
+    a3.onclick  = hidebeerLT;
+
+    content1 = document.getElementById("LIcontent");
+    content2 = document.getElementById("beercontent");
+    content3 = document.getElementById("LTcontent");
+
+    function hideBeerLT(ev) {
+        content2.style.display = 'none';
+        content3.style.display = 'none';
+        content1.style.display= 'block';
+
+
+    }
+
+    function hideLILT(ev) {
+        content1.style.display = 'none';
+        content3.style.display = 'none';
+        content2.style.display = 'block'
+
+    }
+
+    function hidebeerLT(ev) {
+        content1.style.display = 'none';
+        content2.style.display = 'none';
+        content3.style.display = 'block'
+
+    }
+
+
+</script>
+</html>

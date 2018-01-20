@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1 id="number">10</h1>
+<button id="alert">current value</button>
+<button id="increase">increase count</button>
+
+<button id="add-para">add current number to the bottom of the page</button>
+
+</body>
+
+<script>
+    function showNum(ev) {
+
+        var currVal = document.getElementById("number").innerText;
+
+        alert(currVal);
+    }
+
+    function increaseNum(ev) {
+
+        var header1 = document.getElementById("number");
+        var currVal = parseInt(header1.innerText);
+
+        header1.innerText = currVal + 1;
+
+    }
+
+    function addContent(ev) {
+
+
+        var elem = document.createElement('p');
+        elem.innerText = document.getElementById("number").innerText;
+        document.body.appendChild(elem);
+
+
+    }
+
+    var btn1 = document.getElementById("alert");
+    btn1.onclick  = showNum;
+
+    var btn2 = document.getElementById("increase");
+    btn2.onclick  = increaseNum;
+
+    var btn3 = document.getElementById("add-para");
+    btn3.onclick  = addContent;
+
+
+
+</script>
+</html>
