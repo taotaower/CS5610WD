@@ -2,7 +2,7 @@ server {
         listen 80;
         listen [::]:80;
 
-        root /home/zikunlin/www/tobylin.com;
+        root /home/zikunlin/www/tobylin.com/CS5610WD/HW1Pages;
 
         index index.html;
 
