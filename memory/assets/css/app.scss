@@ -1,0 +1,31 @@
+/* This file is for your main application css. */
+
+@import "bootstrap";
+
+.side { padding: 4ex; text-align: center; }
+h1 { text-align: center; }
+
+
+.Game {
+}
+
+.Grind {
+  float: left;
+  width: 4rem;
+  height: 8rem;
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid black;
+  text-align: center;
+  background-color: black;
+
+  // .Grind--flipped
+  &--flipped {
+    background-color: gray;
+  }
+
+  // .Grind--matched
+  &--matched {
+    background-color: green;
+  }
+}
