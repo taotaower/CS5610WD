@@ -6027,26 +6027,55 @@ a.text-dark:hover, a.text-dark:focus {
   .table-bordered td {
     border: 1px solid #ddd !important; } }
 
-.side {
-  padding: 4ex;
-  text-align: center; }
-
 h1 {
   text-align: center; }
 
-.Grind {
-  float: left;
-  width: 4rem;
-  height: 8rem;
-  padding: 1rem;
-  margin: 1rem;
-  border: 1px solid black;
+.Game {
+  position: relative;
+  float: none;
+  margin: 0 auto; }
+
+.Character {
+  font-size: 50px;
   text-align: center;
-  background-color: black; }
+  vertical-align: middle;
+  line-height: 90px;
+  font-weight: bold;
+  font-family: "Verdana", Arial, serif;
+  color: #535c68; }
+
+.tryTimes {
+  color: #ff7979;
+  font-weight: bold;
+  font-size: 20px; }
+
+.matches {
+  color: #badc58;
+  font-weight: bold;
+  font-size: 20px; }
+
+.scores {
+  color: #130f40;
+  font-weight: bold;
+  font-size: 20px; }
+
+.panel {
+  float: none;
+  margin: 0 auto;
+  position: relative;
+  width: 800px;
+  height: 800px; }
+
+.Grind {
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  text-align: center;
+  background-color: #0984e3; }
   .Grind--flipped {
-    background-color: gray; }
+    background-color: #ffeaa7; }
   .Grind--matched {
-    background-color: green; }
+    background-color: #00b894; }
 
 
 

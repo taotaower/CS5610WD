@@ -41189,6 +41189,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
 function init() {
+
   var root = document.getElementById('game');
   (0, _memo2.default)(root);
 }
@@ -41311,7 +41312,7 @@ function Side(params) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -41339,177 +41340,303 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function classNames(classes) {
-  return Object.entries(classes).filter(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        key = _ref2[0],
-        value = _ref2[1];
+    return Object.entries(classes).filter(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            key = _ref2[0],
+            value = _ref2[1];
 
-    return value;
-  }).map(function (_ref3) {
-    var _ref4 = _slicedToArray(_ref3, 2),
-        key = _ref4[0],
-        value = _ref4[1];
+        return value;
+    }).map(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+            key = _ref4[0],
+            value = _ref4[1];
 
-    return key;
-  }).join(' ');
+        return key;
+    }).join(' ');
+}
+
+function shuffleArray(array) {
+    var i = array.length - 1;
+    for (; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
 }
 
 function initialGrids() {
-  return [{ value: 'A', matched: false, flipped: false }, { value: 'B', matched: false, flipped: false }, { value: 'C', matched: false, flipped: false }, { value: 'D', matched: false, flipped: false }, { value: 'E', matched: false, flipped: false }, { value: 'F', matched: false, flipped: false }, { value: 'G', matched: false, flipped: false }, { value: 'H', matched: false, flipped: false }, { value: 'A', matched: false, flipped: false }, { value: 'B', matched: false, flipped: false }, { value: 'C', matched: false, flipped: false }, { value: 'D', matched: false, flipped: false }, { value: 'E', matched: false, flipped: false }, { value: 'F', matched: false, flipped: false }, { value: 'G', matched: false, flipped: false }, { value: 'H', matched: false, flipped: false }];
+    return [{ id: 0, value: 'A', matched: false, flipped: false }, { id: 1, value: 'B', matched: false, flipped: false }, { id: 2, value: 'C', matched: false, flipped: false }, { id: 3, value: 'D', matched: false, flipped: false }, { id: 4, value: 'E', matched: false, flipped: false }, { id: 5, value: 'F', matched: false, flipped: false }, { id: 6, value: 'G', matched: false, flipped: false }, { id: 7, value: 'H', matched: false, flipped: false }, { id: 8, value: 'A', matched: false, flipped: false }, { id: 9, value: 'B', matched: false, flipped: false }, { id: 10, value: 'C', matched: false, flipped: false }, { id: 11, value: 'D', matched: false, flipped: false }, { id: 12, value: 'E', matched: false, flipped: false }, { id: 13, value: 'F', matched: false, flipped: false }, { id: 14, value: 'G', matched: false, flipped: false }, { id: 15, value: 'H', matched: false, flipped: false }];
 }
 
 var Grind = function (_React$Component) {
-  _inherits(Grind, _React$Component);
+    _inherits(Grind, _React$Component);
 
-  function Grind(props) {
-    _classCallCheck(this, Grind);
+    function Grind(props) {
+        _classCallCheck(this, Grind);
 
-    var _this = _possibleConstructorReturn(this, (Grind.__proto__ || Object.getPrototypeOf(Grind)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Grind.__proto__ || Object.getPrototypeOf(Grind)).call(this, props));
 
-    _this.clickEvent = _this.clickEvent.bind(_this);
-    return _this;
-  }
-
-  _createClass(Grind, [{
-    key: 'clickEvent',
-    value: function clickEvent(e) {
-      if (!this.props.flipped) {
-        this.props.checkEqual(this.props.value, this.props.id);
-      }
+        _this.clickEvent = _this.clickEvent.bind(_this);
+        return _this;
     }
-  }, {
-    key: 'render',
-    value: function render() {
-      var classes = classNames({
-        'Grind': true,
-        'Grind--flipped': this.props.flipped,
-        'Grind--matched': this.props.matched });
 
-      var display = '';
-      if (this.props.flipped) {
-        display = this.props.value;
-      }
+    _createClass(Grind, [{
+        key: 'clickEvent',
+        value: function clickEvent(e) {
+            if (this.props.locked) {
+                return;
+            }
 
-      return _react2.default.createElement(
-        'div',
-        { className: classes, onClick: this.clickEvent },
-        display
-      );
-    }
-  }]);
+            if (!this.props.flipped) {
+                console.log(this.props.flipped);
+                console.log(this.props.id);
+                this.props.checkEqual(this.props.value, this.props.id);
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var classes = classNames({
 
-  return Grind;
+                'Grind': true,
+                'Grind--flipped': this.props.flipped,
+                'Grind--matched': this.props.matched });
+
+            var display = '';
+            if (this.props.flipped) {
+                display = this.props.value;
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'col' },
+                _react2.default.createElement(
+                    'div',
+                    { className: classes, id: this.props.id, onClick: this.clickEvent },
+                    _react2.default.createElement(
+                        'label',
+                        { className: 'Character' },
+                        display
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Grind;
 }(_react2.default.Component);
 
 function run_demo(root) {
-  _reactDom2.default.render(_react2.default.createElement(Memo, null), root);
+    _reactDom2.default.render(_react2.default.createElement(Memo, null), root);
 }
 
 var Memo = function (_React$Component2) {
-  _inherits(Memo, _React$Component2);
+    _inherits(Memo, _React$Component2);
 
-  function Memo(props) {
-    _classCallCheck(this, Memo);
+    function Memo(props) {
+        _classCallCheck(this, Memo);
 
-    var _this2 = _possibleConstructorReturn(this, (Memo.__proto__ || Object.getPrototypeOf(Memo)).call(this, props));
+        var _this2 = _possibleConstructorReturn(this, (Memo.__proto__ || Object.getPrototypeOf(Memo)).call(this, props));
 
-    _this2.restart = _this2.restart.bind(_this2);
-    _this2.renderGrinds = _this2.renderGrinds.bind(_this2);
-    _this2.checkEqual = _this2.checkEqual.bind(_this2);
-
-    _this2.state = {
-      grinds: initialGrids(),
-      lastGrind: null,
-      locked: false,
-      matches: 0,
-      tryTimes: 0
-    };
-    return _this2;
-  }
-
-  _createClass(Memo, [{
-    key: 'restart',
-    value: function restart() {
-      this.setState({
-        grinds: initialGrids(),
-        lastGrind: null,
-        locked: false,
-        matches: 0,
-        tryTimes: 0
-      });
-    }
-  }, {
-    key: 'renderGrinds',
-    value: function renderGrinds(grinds) {
-      var _this3 = this;
-
-      return grinds.map(function (grind, index) {
-        return _react2.default.createElement(Grind, {
-          key: index,
-          value: grind.value,
-          id: index,
-          matched: grind.matched,
-          flipped: grind.flipped,
-          checkEqual: _this3.checkEqual });
-      });
-    }
-  }, {
-    key: 'checkEqual',
-    value: function checkEqual(value, id) {
-      var _this4 = this;
-
-      if (this.state.done) {
-        return;
-      }
-
-      var grinds = this.state.grinds;
-      grinds[id].flipped = true;
-      this.setState({ grinds: grinds, locked: true });
-      if (this.state.lastGrind) {
-        if (value === this.state.lastGrind.value) {
-          var matches = this.state.matches;
-          grinds[id].matched = true;
-          grinds[this.state.lastCard.id].matched = true;
-          this.setState({ grinds: grinds, lastCard: null, locked: false, matches: matches + 1 });
-        } else {
-          setTimeout(function () {
-            grinds[id].flipped = false;
-            grinds[_this4.state.lastCard.id].flipped = false;
-            _this4.setState({ grinds: grinds, lastCard: null, locked: false });
-          }, 1000);
-        }
-      } else {
-        this.setState({
-          lastCard: { id: id, value: value },
-          locked: false
+        _this2.restart = _this2.restart.bind(_this2);
+        _this2.renderGrinds = _this2.renderGrinds.bind(_this2);
+        _this2.checkEqual = _this2.checkEqual.bind(_this2);
+        var grinds = shuffleArray(initialGrids());
+        grinds.map(function (grind, index) {
+            grind.id = index;
         });
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var btnText = 'Reset';
-      if (this.state.matches === this.state.grinds.length / 2) {
-        btnText = 'You Win! Play Again?';
-      }
-      return _react2.default.createElement(
-        'div',
-        { className: 'Game' },
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'button',
-            { onClick: this.reset },
-            btnText
-          )
-        ),
-        this.renderGrinds(this.state.grinds)
-      );
-    }
-  }]);
 
-  return Memo;
+        _this2.state = {
+            grinds: grinds,
+            lastGrind: null,
+            locked: false,
+            matches: 0,
+            tryTimes: 0
+        };
+        return _this2;
+    }
+
+    _createClass(Memo, [{
+        key: 'restart',
+        value: function restart() {
+            var grinds = shuffleArray(initialGrids());
+            grinds.map(function (grind, index) {
+                grind.id = index;
+            });
+            this.setState({
+                grinds: grinds,
+                lastGrind: null,
+                locked: false,
+                matches: 0,
+                tryTimes: 0
+            });
+        }
+    }, {
+        key: 'renderGrinds',
+        value: function renderGrinds(grinds) {
+            var _this3 = this;
+
+            return grinds.map(function (grind, index) {
+                return _react2.default.createElement(Grind, {
+                    value: grind.value,
+                    id: grind.id,
+                    matched: grind.matched,
+                    flipped: grind.flipped,
+                    locked: _this3.state.locked,
+                    checkEqual: _this3.checkEqual });
+            });
+        }
+    }, {
+        key: 'checkEqual',
+        value: function checkEqual(value, id) {
+            var _this4 = this;
+
+            if (this.state.done) {
+                console.log('done');
+                return;
+            }
+            console.log('checking');
+            var grinds = this.state.grinds;
+            grinds[id].flipped = true;
+
+            console.log('here here');
+            this.setState({ grinds: grinds, locked: true });
+            console.log(this.state.lastGrind);
+
+            if (this.state.lastGrind) {
+                var tryTimes = this.state.tryTimes;
+                this.setState({ tryTimes: tryTimes + 1 });
+
+                if (value === this.state.lastGrind.value) {
+
+                    console.log('value verify');
+                    var matches = this.state.matches;
+                    grinds[id].matched = true;
+                    grinds[this.state.lastGrind.id].matched = true;
+                    this.setState({ grinds: grinds, lastGrind: null, locked: false, matches: matches + 1 });
+                } else {
+                    setTimeout(function () {
+                        grinds[id].flipped = false;
+                        grinds[_this4.state.lastGrind.id].flipped = false;
+                        _this4.setState({ grinds: grinds, lastGrind: null, locked: false });
+                    }, 1000);
+                }
+            } else {
+
+                console.log(id, value);
+                this.setState({
+                    lastGrind: { id: id, value: value },
+                    locked: false
+                });
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var btnText = 'Restart';
+            if (this.state.matches === this.state.grinds.length / 2) {
+                btnText = 'Another round? click me';
+            }
+            return _react2.default.createElement(
+                'div',
+                { className: 'Game' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col' },
+                        _react2.default.createElement(
+                            _reactstrap.Button,
+                            { className: 'Reset', onClick: this.restart },
+                            btnText
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            ' You tried ',
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'tryTimes' },
+                                this.state.tryTimes,
+                                ' '
+                            ),
+                            ' time(s)'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            ' You got ',
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'matches' },
+                                this.state.matches,
+                                ' '
+                            ),
+                            ' match(es)'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col' },
+                        _react2.default.createElement(
+                            'label',
+                            null,
+                            ' Your score is  \xA0\xA0',
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'scores' },
+                                '  ',
+                                this.state.matches * 4 - this.state.tryTimes,
+                                '  '
+                            ),
+                            ' \xA0\xA0!'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'panel' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'container' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            this.renderGrinds(this.state.grinds.slice(0, 4))
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            this.renderGrinds(this.state.grinds.slice(4, 8))
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            this.renderGrinds(this.state.grinds.slice(8, 12))
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'row' },
+                            this.renderGrinds(this.state.grinds.slice(12, 16))
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Memo;
 }(_react2.default.Component);
 
 });
