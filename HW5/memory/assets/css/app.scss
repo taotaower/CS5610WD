@@ -1,0 +1,78 @@
+/* This file is for your main application css. */
+
+@import "bootstrap";
+
+
+h1 { text-align: center; }
+
+
+.Game {
+  //float: left;
+  position: relative;
+  //
+  //width: 1000px;
+  //height: 1000px;
+  float: none;
+  margin: 0 auto;
+}
+
+.Character{
+  font-size: 50px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;
+  font-weight: bold;
+  font-family: "Verdana", Arial, serif;
+  color: #535c68;
+}
+
+.Reset{
+  //top: -10px;
+  //right: 10px;
+  //position: relative;
+
+}
+.tryTimes{
+  color : #ff7979;
+  font-weight: bold;
+  font-size: 20px;
+}
+.matches{
+  color : #badc58;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.scores{
+  color : #130f40;
+  font-weight: bold;
+  font-size: 20px;
+}
+.panel{
+  float: none;
+  margin: 0 auto;
+  position: relative;
+  width: 800px;
+  height: 800px;
+}
+
+.Grind {
+
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+
+  text-align: center;
+  background-color: #0984e3;
+
+  // .Grind--flipped
+  &--flipped {
+    background-color: #ffeaa7;
+
+  }
+
+  // .Grind--matched
+  &--matched {
+    background-color: #00b894;
+  }
+}
