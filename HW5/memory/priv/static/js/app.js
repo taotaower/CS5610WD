@@ -41173,8 +41173,44 @@ var _memo = require("./memo");
 
 var _memo2 = _interopRequireDefault(_memo);
 
+var _socket = require("./socket");
+
+var _socket2 = _interopRequireDefault(_socket);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//     $('#game-button').click(() => {
+//         let xx = $('#game-input').val();
+//     channel.push("double", { xx: xx }).receive("doubled", msg => {
+//         $('#game-output').text(msg.yy);
+// });
+// });
+
+
+// Import local files
+//
+// Local files can be imported directly using relative
+// paths "./socket" or full ones "web/static/js/socket".
+
+// import socket from "./socket"
+
+//import run_demo from "./demo";
+//require('assets/css/app.scss');
+function init() {
+
+    var root = document.getElementById('game');
+
+    if (root) {
+        console.log("try to join channel");
+
+        var channel = _socket2.default.channel("games:" + window.gameName, {});
+
+        (0, _memo2.default)(root, channel);
+        //run_demo(root,channel);
+    }
+}
+
+// Use jQuery to delay until page loaded.
 // Brunch automatically concatenates all files in your
 // watched paths. Those paths can be configured at
 // config.paths.watched in "brunch-config.js".
@@ -41188,25 +41224,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-function init() {
-
-  var root = document.getElementById('game');
-  (0, _memo2.default)(root);
-}
-
-// Use jQuery to delay until page loaded.
-
-
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
-
-// import socket from "./socket"
-
-//import run_demo from "./demo";
-//require('assets/css/app.scss');
 $(init);
+
+$('#submit-name').on('click', function () {
+
+    var name = $("#game-name").val();
+    var url = window.location.href;
+
+    if (name) {
+        document.location = url + 'game/' + name;
+    } else {
+        alert("You have to input a game name");
+    }
+});
 
 });
 
@@ -41355,20 +41385,37 @@ function classNames(classes) {
     }).join(' ');
 }
 
-function shuffleArray(array) {
-    var i = array.length - 1;
-    for (; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}
+// function shuffleArray(array) {
+//     let i = array.length - 1;
+//     for (; i > 0; i--) {
+//         const j = Math.floor(Math.random() * (i + 1));
+//         const temp = array[i];
+//         array[i] = array[j];
+//         array[j] = temp;
+//     }
+//     return array;
+// }
 
-function initialGrids() {
-    return [{ id: 0, value: 'A', matched: false, flipped: false }, { id: 1, value: 'B', matched: false, flipped: false }, { id: 2, value: 'C', matched: false, flipped: false }, { id: 3, value: 'D', matched: false, flipped: false }, { id: 4, value: 'E', matched: false, flipped: false }, { id: 5, value: 'F', matched: false, flipped: false }, { id: 6, value: 'G', matched: false, flipped: false }, { id: 7, value: 'H', matched: false, flipped: false }, { id: 8, value: 'A', matched: false, flipped: false }, { id: 9, value: 'B', matched: false, flipped: false }, { id: 10, value: 'C', matched: false, flipped: false }, { id: 11, value: 'D', matched: false, flipped: false }, { id: 12, value: 'E', matched: false, flipped: false }, { id: 13, value: 'F', matched: false, flipped: false }, { id: 14, value: 'G', matched: false, flipped: false }, { id: 15, value: 'H', matched: false, flipped: false }];
-}
+// function initialGrids() {
+//   return [
+//     {id: 0, value: 'A', matched: false, flipped: false},
+//     {id: 1, value: 'B', matched: false, flipped: false},
+//     {id: 2, value: 'C', matched: false, flipped: false},
+//     {id: 3, value: 'D', matched: false, flipped: false},
+//     {id: 4, value: 'E', matched: false, flipped: false},
+//     {id: 5, value: 'F', matched: false, flipped: false},
+//     {id: 6, value: 'G', matched: false, flipped: false},
+//     {id: 7, value: 'H', matched: false, flipped: false},
+//     {id: 8, value: 'A', matched: false, flipped: false},
+//     {id: 9, value: 'B', matched: false, flipped: false},
+//     {id: 10, value: 'C', matched: false, flipped: false},
+//     {id: 11, value: 'D', matched: false, flipped: false},
+//     {id: 12, value: 'E', matched: false, flipped: false},
+//     {id: 13, value: 'F', matched: false, flipped: false},
+//     {id: 14, value: 'G', matched: false, flipped: false},
+//     {id: 15, value: 'H', matched: false, flipped: false}
+//   ];
+// }
 
 var Grind = function (_React$Component) {
     _inherits(Grind, _React$Component);
@@ -41391,7 +41438,7 @@ var Grind = function (_React$Component) {
 
             if (!this.props.flipped) {
                 console.log(this.props.flipped);
-                console.log(this.props.id);
+                // console.log(this.props.id);
                 this.props.checkEqual(this.props.value, this.props.id);
             }
         }
@@ -41428,8 +41475,8 @@ var Grind = function (_React$Component) {
     return Grind;
 }(_react2.default.Component);
 
-function run_demo(root) {
-    _reactDom2.default.render(_react2.default.createElement(Memo, null), root);
+function run_demo(root, channel) {
+    _reactDom2.default.render(_react2.default.createElement(Memo, { channel: channel }), root);
 }
 
 var Memo = function (_React$Component2) {
@@ -41440,38 +41487,73 @@ var Memo = function (_React$Component2) {
 
         var _this2 = _possibleConstructorReturn(this, (Memo.__proto__ || Object.getPrototypeOf(Memo)).call(this, props));
 
-        _this2.restart = _this2.restart.bind(_this2);
-        _this2.renderGrinds = _this2.renderGrinds.bind(_this2);
-        _this2.checkEqual = _this2.checkEqual.bind(_this2);
-        var grinds = shuffleArray(initialGrids());
-        grinds.map(function (grind, index) {
-            grind.id = index;
-        });
-
+        _this2.channel = props.channel;
         _this2.state = {
-            grinds: grinds,
+            grinds: [],
             lastGrind: null,
             locked: false,
             matches: 0,
             tryTimes: 0
         };
+
+        _this2.channel.join().receive("ok", _this2.gotView.bind(_this2)).receive("error", function (resp) {
+            console.log("Unable to join", resp);
+        });
+
+        //this.channel.join()
+        //    .receive("ok", this.gotView.bind(this))
+        //    .receive("error", resp => { console.log("Unable to join", resp) });
+        _this2.restart = _this2.restart.bind(_this2);
+        _this2.renderGrinds = _this2.renderGrinds.bind(_this2);
+        _this2.checkEqual = _this2.checkEqual.bind(_this2);
+        // let grinds = shuffleArray(initialGrids());
+        // grinds.map((grind,index) => {
+        //     grind.id = index
+        //
+        //   }
+        // );
+
+        // this.state = {
+        //   grinds : grinds,
+        //   lastGrind : null,
+        //   locked : false,
+        //   matches : 0,
+        //   tryTimes : 0,
+        //   };
         return _this2;
     }
 
     _createClass(Memo, [{
+        key: 'gotView',
+        value: function gotView(view) {
+            this.setState(view.game);
+            console.log('callling gotView');
+            console.log(view.game);
+        }
+    }, {
         key: 'restart',
         value: function restart() {
-            var grinds = shuffleArray(initialGrids());
-            grinds.map(function (grind, index) {
-                grind.id = index;
-            });
-            this.setState({
-                grinds: grinds,
-                lastGrind: null,
-                locked: false,
-                matches: 0,
-                tryTimes: 0
-            });
+
+            this.channel.push("restart", {}).receive("ok", this.gotView.bind(this));
+            //    .receive("ok", outputT = 'xixixixixixi');
+            // console.log(outputT)
+
+            //         let grinds = shuffleArray(initialGrids());
+            //         grinds.map((grind,index) => {
+            //                 grind.id = index
+            //
+            //             }
+            //         );
+            //
+            //      this.setState({
+            //       grinds : grinds,
+            //       lastGrind : null,
+            //       locked : false,
+            //       matches : 0,
+            //       tryTimes : 0
+            // }
+            // )
+            //      ;
         }
     }, {
         key: 'renderGrinds',
@@ -41493,43 +41575,55 @@ var Memo = function (_React$Component2) {
         value: function checkEqual(value, id) {
             var _this4 = this;
 
-            if (this.state.done) {
-                console.log('done');
-                return;
-            }
-            console.log('checking');
-            var grinds = this.state.grinds;
-            grinds[id].flipped = true;
-
-            console.log('here here');
-            this.setState({ grinds: grinds, locked: true });
-            console.log(this.state.lastGrind);
+            // console.log('checking');
+            // let grinds = this.state.grinds;
+            //     grinds[id].flipped = true;
+            //
+            // // console.log('here here');
+            // this.setState({grinds, locked: true});
+            // console.log(this.state.lastGrind);
+            console.log("checking");
+            //
+            this.channel.push("flipLock", { id: id })
+            //    .receive("ok", this.gotView.bind(this));
+            .receive("ok", this.gotView.bind(this));
 
             if (this.state.lastGrind) {
-                var tryTimes = this.state.tryTimes;
-                this.setState({ tryTimes: tryTimes + 1 });
+                console.log('lasttt');
+                console.log(this.state.lastGrind);
+                // let grinds = this.state.grinds;
+                //
+                // let tryTimes = this.state.tryTimes;
+                // this.setState({tryTimes : tryTimes + 1 });
 
                 if (value === this.state.lastGrind.value) {
 
-                    console.log('value verify');
-                    var matches = this.state.matches;
-                    grinds[id].matched = true;
-                    grinds[this.state.lastGrind.id].matched = true;
-                    this.setState({ grinds: grinds, lastGrind: null, locked: false, matches: matches + 1 });
+                    // console.log('value verify');
+                    // let matches = this.state.matches;
+                    //   grinds[id].matched = true;
+                    //   grinds[this.state.lastGrind.id].matched = true;
+                    // this.setState({grinds, lastGrind: null, locked: false, matches: matches + 1});
+
+                    this.channel.push("setMatch", { id: id, last_id: this.state.lastGrind.id }).receive("ok", this.gotView.bind(this));
                 } else {
                     setTimeout(function () {
-                        grinds[id].flipped = false;
-                        grinds[_this4.state.lastGrind.id].flipped = false;
-                        _this4.setState({ grinds: grinds, lastGrind: null, locked: false });
+
+                        _this4.channel.push("setNoMatch", { id: id, last_id: _this4.state.lastGrind.id }).receive("ok", _this4.gotView.bind(_this4));
+                        //   grinds[id].flipped = false;
+                        //   grinds[this.state.lastGrind.id].flipped = false;
+                        // this.setState({grinds, lastGrind: null, locked: false});
                     }, 1000);
                 }
             } else {
-
-                console.log(id, value);
-                this.setState({
-                    lastGrind: { id: id, value: value },
-                    locked: false
-                });
+                //   console.log(id,value);
+                // this.setState({
+                //   lastGrind: {id, value},
+                //   locked: false,
+                // });
+                //   console.log('else commentdddd');
+                //   console.log(this.state);
+                //
+                this.channel.push("lastGrind", { id: id, value: value }).receive("ok", this.gotView.bind(this));
             }
         }
     }, {
@@ -41650,7 +41744,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _phoenix = require("phoenix");
 
-//let socket = new Socket("/socket", {params: {token: window.userToken}});
+var socket = new _phoenix.Socket("/socket", { params: { token: window.userToken } });
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -41696,20 +41790,18 @@ var _phoenix = require("phoenix");
 // Finally, pass the token on connect as below. Or remove it
 // from connect if you don't care about authentication.
 
-socket.connect();
-
-// Now that you are connected, you can join channels with a topic:
 // NOTE: The contents of this file will only be executed if
 // you uncomment its entry in "assets/js/app.js".
 
 // To use Phoenix channels, the first step is to import Socket
 // and connect at the socket path in "lib/web/endpoint.ex":
-var channel = socket.channel("topic:subtopic", {});
-channel.join().receive("ok", function (resp) {
-  console.log("Joined successfully", resp);
-}).receive("error", function (resp) {
-  console.log("Unable to join", resp);
-});
+socket.connect();
+
+// Now that you are connected, you can join channels with a topic:
+// let channel = socket.channel("topic:subtopic", {});
+// channel.join()
+//   .receive("ok", resp => { console.log("Joined successfully", resp); })
+//   .receive("error", resp => { console.log("Unable to join", resp); });
 
 exports.default = socket;
 

@@ -1,7 +1,15 @@
 <h1>Memory Game</h1>
 
-<div id="game">
-  Loading...
+<div id="loading">
+  <label>Please Input the Name of Memory Game</label>
+
+ <div>
+  <input type="text" id="game-name">
+
+  <button type="button" class="btn btn-primary" style="position: relative; left: 20px" id="submit-name">Submit</button>
+
+  </div>
+
 </div>
 
 

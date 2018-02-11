@@ -24,15 +24,48 @@ import "phoenix_html";
 //require('assets/css/app.scss');
 import run_demo from "./memo"
 
+import socket from "./socket";
+
+
+//     $('#game-button').click(() => {
+//         let xx = $('#game-input').val();
+//     channel.push("double", { xx: xx }).receive("doubled", msg => {
+//         $('#game-output').text(msg.yy);
+// });
+// });
+
+
+
+
 function init() {
 
   let root = document.getElementById('game');
-  run_demo(root);
 
+  if (root){
+      console.log("try to join channel");
 
+      let channel = socket.channel("games:" + window.gameName, {});
+
+      run_demo(root,channel);
+  //run_demo(root,channel);
+  }
 
 }
 
 // Use jQuery to delay until page loaded.
 $(init);
 
+$('#submit-name').on('click',function(){
+
+    var name = $("#game-name").val();
+    var url      = window.location.href;
+
+    if (name){
+        document.location = url + 'game/' + name
+    }
+    else {
+        alert("You have to input a game name")
+    }
+
+
+});

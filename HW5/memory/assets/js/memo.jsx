@@ -10,39 +10,37 @@ function classNames(classes) {
 }
 
 
+// function shuffleArray(array) {
+//     let i = array.length - 1;
+//     for (; i > 0; i--) {
+//         const j = Math.floor(Math.random() * (i + 1));
+//         const temp = array[i];
+//         array[i] = array[j];
+//         array[j] = temp;
+//     }
+//     return array;
+// }
 
-function shuffleArray(array) {
-    let i = array.length - 1;
-    for (; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
-}
-
-function initialGrids() {
-  return [
-    {id : 0, value: 'A', matched: false, flipped: false},
-    {id : 1, value: 'B', matched: false, flipped: false},
-    {id : 2, value: 'C', matched: false, flipped: false},
-    {id : 3, value: 'D', matched: false, flipped: false},
-    {id : 4, value: 'E', matched: false, flipped: false},
-    {id : 5, value: 'F', matched: false, flipped: false},
-    {id : 6, value: 'G', matched: false, flipped: false},
-    {id : 7, value: 'H', matched: false, flipped: false},
-    {id : 8, value: 'A', matched: false, flipped: false},
-    {id : 9, value: 'B', matched: false, flipped: false},
-    {id : 10, value: 'C', matched: false, flipped: false},
-    {id : 11, value: 'D', matched: false, flipped: false},
-    {id : 12, value: 'E', matched: false, flipped: false},
-    {id : 13, value: 'F', matched: false, flipped: false},
-    {id : 14, value: 'G', matched: false, flipped: false},
-    {id : 15, value: 'H', matched: false, flipped: false}
-  ];
-}
-
+// function initialGrids() {
+//   return [
+//     {id: 0, value: 'A', matched: false, flipped: false},
+//     {id: 1, value: 'B', matched: false, flipped: false},
+//     {id: 2, value: 'C', matched: false, flipped: false},
+//     {id: 3, value: 'D', matched: false, flipped: false},
+//     {id: 4, value: 'E', matched: false, flipped: false},
+//     {id: 5, value: 'F', matched: false, flipped: false},
+//     {id: 6, value: 'G', matched: false, flipped: false},
+//     {id: 7, value: 'H', matched: false, flipped: false},
+//     {id: 8, value: 'A', matched: false, flipped: false},
+//     {id: 9, value: 'B', matched: false, flipped: false},
+//     {id: 10, value: 'C', matched: false, flipped: false},
+//     {id: 11, value: 'D', matched: false, flipped: false},
+//     {id: 12, value: 'E', matched: false, flipped: false},
+//     {id: 13, value: 'F', matched: false, flipped: false},
+//     {id: 14, value: 'G', matched: false, flipped: false},
+//     {id: 15, value: 'H', matched: false, flipped: false}
+//   ];
+// }
 
 class Grind extends React.Component {
   constructor(props) {
@@ -56,8 +54,8 @@ class Grind extends React.Component {
      }
 
     if (!this.props.flipped) {
-        console.log(this.props.flipped);
-        console.log(this.props.id);
+         console.log(this.props.flipped);
+        // console.log(this.props.id);
       this.props.checkEqual(this.props.value, this.props.id);
     }
   }
@@ -89,53 +87,87 @@ class Grind extends React.Component {
   }
 }
 
-export default function run_demo(root) {
-  ReactDOM.render(<Memo />, root);
+export default function run_demo(root,channel) {
+  ReactDOM.render(<Memo channel = {channel} />, root);
   }
+
+
+
 class Memo extends React.Component {
   constructor(props) {
     super(props);
+      this.channel = props.channel;
+      this.state = {
+          grinds : [],
+          lastGrind : null,
+          locked : false,
+          matches : 0,
+          tryTimes : 0,
+      };
+
+      this.channel.join()
+          .receive("ok", this.gotView.bind(this))
+          .receive("error", resp => { console.log("Unable to join", resp) });
+
+    //this.channel.join()
+      //    .receive("ok", this.gotView.bind(this))
+      //    .receive("error", resp => { console.log("Unable to join", resp) });
     this.restart = this.restart.bind(this);
     this.renderGrinds = this.renderGrinds.bind(this);
     this.checkEqual = this.checkEqual.bind(this);
-    let grinds = shuffleArray(initialGrids());
-    grinds.map((grind,index) => {
-        grind.id = index
+    // let grinds = shuffleArray(initialGrids());
+    // grinds.map((grind,index) => {
+    //     grind.id = index
+    //
+    //   }
+    // );
 
-      }
-    );
-
-    this.state = {
-      grinds : grinds,
-      lastGrind : null,
-      locked : false,
-      matches : 0,
-      tryTimes : 0,
-      };
+    // this.state = {
+    //   grinds : grinds,
+    //   lastGrind : null,
+    //   locked : false,
+    //   matches : 0,
+    //   tryTimes : 0,
+    //   };
   }
+
+    gotView(view) {
+        this.setState(view.game);
+        console.log('callling gotView')
+        console.log(view.game)
+    }
 
 
     restart() {
-        let grinds = shuffleArray(initialGrids());
-        grinds.map((grind,index) => {
-                grind.id = index
 
-            }
-        );
-     this.setState({
-      grinds : grinds,
-      lastGrind : null,
-      locked : false,
-      matches : 0,
-      tryTimes : 0
-}); }
+        this.channel.push("restart", { })
+            .receive("ok", this.gotView.bind(this));
+        //    .receive("ok", outputT = 'xixixixixixi');
+        // console.log(outputT)
+
+//         let grinds = shuffleArray(initialGrids());
+//         grinds.map((grind,index) => {
+//                 grind.id = index
+//
+//             }
+//         );
+//
+//      this.setState({
+//       grinds : grinds,
+//       lastGrind : null,
+//       locked : false,
+//       matches : 0,
+//       tryTimes : 0
+// }
+// )
+//      ;
+
+  }
 
 
     renderGrinds(grinds) {
-
         return grinds.map((grind, index) => {
                 return (
-
                 <Grind
                     value={grind.value}
                     id={grind.id}
@@ -148,45 +180,70 @@ class Memo extends React.Component {
     }
 
     checkEqual(value, id) {
-    if (this.state.done) {
-        console.log('done');
-      return;
-    }
-    console.log('checking');
-    let grinds = this.state.grinds;
-        grinds[id].flipped = true;
 
-    console.log('here here');
-    this.setState({grinds, locked: true});
-    console.log(this.state.lastGrind);
+    // console.log('checking');
+    // let grinds = this.state.grinds;
+    //     grinds[id].flipped = true;
+    //
+    // // console.log('here here');
+    // this.setState({grinds, locked: true});
+    // console.log(this.state.lastGrind);
+        console.log("checking");
+        //
+        this.channel.push("flipLock",  { id: id })
+        //    .receive("ok", this.gotView.bind(this));
+            .receive("ok", this.gotView.bind(this));
+
 
     if (this.state.lastGrind) {
-        let tryTimes = this.state.tryTimes;
-        this.setState({tryTimes : tryTimes + 1 });
+        console.log('lasttt');
+        console.log(this.state.lastGrind);
+        // let grinds = this.state.grinds;
+        //
+        // let tryTimes = this.state.tryTimes;
+        // this.setState({tryTimes : tryTimes + 1 });
 
       if (value === this.state.lastGrind.value) {
 
-          console.log('value verify');
-        let matches = this.state.matches;
-        grinds[id].matched = true;
-          grinds[this.state.lastGrind.id].matched = true;
-        this.setState({grinds, lastGrind: null, locked: false, matches: matches + 1});
-      } else {
+          // console.log('value verify');
+        // let matches = this.state.matches;
+        //   grinds[id].matched = true;
+        //   grinds[this.state.lastGrind.id].matched = true;
+        // this.setState({grinds, lastGrind: null, locked: false, matches: matches + 1});
+
+          this.channel.push("setMatch",  { id: id, last_id: this.state.lastGrind.id })
+              .receive("ok", this.gotView.bind(this));
+
+
+      }
+
+      else {
         setTimeout(() => {
-            grinds[id].flipped = false;
-            grinds[this.state.lastGrind.id].flipped = false;
-          this.setState({grinds, lastGrind: null, locked: false});
+
+            this.channel.push("setNoMatch",  { id: id, last_id: this.state.lastGrind.id })
+                .receive("ok", this.gotView.bind(this));
+            //   grinds[id].flipped = false;
+          //   grinds[this.state.lastGrind.id].flipped = false;
+          // this.setState({grinds, lastGrind: null, locked: false});
         }, 1000);
       }
     }
     else {
+      //   console.log(id,value);
+      // this.setState({
+      //   lastGrind: {id, value},
+      //   locked: false,
+      // });
+      //   console.log('else commentdddd');
+      //   console.log(this.state);
+      //
+        this.channel.push("lastGrind",  { id: id,value: value })
+            .receive("ok", this.gotView.bind(this));
 
-        console.log(id,value);
-      this.setState({
-        lastGrind: {id, value},
-        locked: false,
-      });
     }
+
+
+
   }
 
 
