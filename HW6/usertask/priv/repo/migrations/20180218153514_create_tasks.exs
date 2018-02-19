@@ -11,6 +11,7 @@ defmodule Usertask.Repo.Migrations.CreateTasks do
       timestamps()
     end
 
+
     create index(:tasks, [:user_id])
   end
 end

@@ -27,6 +27,20 @@
       </div>
       <% end %>
 
+
+            <div class="row">
+              <div class="col-6">
+                <%= if @current_user do %>
+                  <p>
+                    Logged in as: <%= @current_user.name %> |
+                    <%= link "Log Out", to: "/session", method: :delete %>
+                  </p>
+                <% else %>
+                  <p>Not logged in.</p>
+                <% end %>
+              </div>
+            </div>
+
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

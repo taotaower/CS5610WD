@@ -3,7 +3,12 @@
 <ul>
 
   <li>
-    <strong>Desc:</strong>
+    <strong>Title:</strong>
+    <%= @task.title %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
     <%= @task.desc %>
   </li>
 
@@ -15,6 +20,11 @@
   <li>
     <strong>Complete:</strong>
     <%= @task.complete %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%=@user_name%>
   </li>
 
 </ul>

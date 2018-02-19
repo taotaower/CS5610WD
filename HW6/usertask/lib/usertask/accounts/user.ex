@@ -16,5 +16,7 @@ defmodule Usertask.Accounts.User do
     user
     |> cast(attrs, [:email, :name])
     |> validate_required([:email, :name])
+    |> validate_format(:email, ~r/.*?@.*?.com/)
+    |> unique_constraint(:email)
   end
 end
