@@ -1,27 +1,29 @@
-<h2>My Tasks</h2>
+<h2>All Tasks</h2>
 
 <table class="table">
   <thead>
-    <tr class="row">
-      <th class="col-2">Title</th>
-      <th class="col-4">Description</th>
-      <th class="col-2">Time spent</th>
-      <th class="col-1">Complete</th>
-      <th class="col-3"></th>
-    </tr>
+        <tr class="row">
+          <th class="col-2">Title</th>
+          <th class="col-3">Description</th>
+          <th class="col-2">Time spent</th>
+          <th class="col-1">Complete</th>
+          <th class="col-1">User</th>
+          <th class="col-3"></th>
+        </tr>
   </thead>
   <tbody>
 <%= for task <- @tasks do %>
     <tr class="row">
       <td class="col-2 text-truncate"><%= task.title %></td>
-      <td class="col-4 text-truncate"><%= task.desc %></td>
+      <td class="col-3 text-truncate"><%= task.desc %></td>
       <td class="col-2 time-display" data-time =<%= task.time_spent %>></td>
-
            <%= if task.complete do %>
               <td class="col-1">Yes</td>
             <% else %>
               <td class="col-1">No</td>
             <% end %>
+
+      <td class="col-1"><%= task.user.name %></td>
 
       <td class="text-right col-3">
         <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
@@ -29,12 +31,10 @@
         <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
-
 <% end %>
   </tbody>
 </table>
 
-
 <span><%= link "New Task", to: task_path(@conn, :new) %></span>
 <br>
-<span><%= link "All Tasks in the System", to: "/all_tasks", method: :get %></span>
+<span><%= link "Back to My Tasks", to: task_path(@conn, :index) %></span>

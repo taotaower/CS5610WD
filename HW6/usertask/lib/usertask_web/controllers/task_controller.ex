@@ -3,10 +3,27 @@ defmodule UsertaskWeb.TaskController do
 
   alias Usertask.Tasks
   alias Usertask.Tasks.Task
+  alias Usertask.Repo
 
   def index(conn, _params) do
-    tasks = Tasks.list_tasks()
+#    IO.inspect get_session(conn, :user_id)
+    user_id = get_session(conn, :user_id)
+#    tasks = Repo.get_by(Task, user_id: user_id)
+#    IO.inspect tasks
+    #tasks = Task.get_task!(id)
+
+    tasks = Tasks.list_my_tasks(user_id)
+    #tasks = Tasks.list_tasks()
+
+  #  IO.inspect Tasks.list_tasks()
+    IO.inspect tasks
+
     render(conn, "index.html", tasks: tasks,users: get_users())
+  end
+
+  def all_tasks(conn, _params) do
+         tasks = Tasks.list_tasks()
+    render(conn, "all_tasks.html", tasks: tasks,users: get_users())
   end
 
   def new(conn, _params) do
@@ -27,7 +44,7 @@ defmodule UsertaskWeb.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
-    IO.inspect task
+  #  IO.inspect task
     render(conn, "show.html", task: task, user_name: get_user_name(task.user_id))
   end
 
@@ -37,9 +54,14 @@ defmodule UsertaskWeb.TaskController do
     render(conn, "edit.html", task: task, changeset: changeset,users: get_users())
   end
 
+  def edit_time(conn, %{"id" => id}) do
+    task = Tasks.get_task!(id)
+    changeset = Tasks.change_task(task)
+    render(conn, "edit_time.html", task: task, changeset: changeset,users: get_users())
+  end
+
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task!(id)
-
     case Tasks.update_task(task, task_params) do
       {:ok, task} ->
         conn

@@ -1,33 +1,31 @@
 <h2>Show Task</h2>
 
-<ul>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @task.title %>
-  </li>
 
-  <li>
-    <strong>Description:</strong>
-    <%= @task.desc %>
-  </li>
-
-  <li>
-    <strong>Time spent:</strong>
-    <%= @task.time_spent %>
-  </li>
-
-  <li>
+<div class="card text-center">
+  <div class="card-header">
     <strong>Complete:</strong>
-    <%= @task.complete %>
-  </li>
+                  <%= if @task.complete do %>
+                     Yes
+                   <% else %>
+                     No
+                   <% end %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= @task.title %></h5>
+    <p class="card-text"><%= @task.desc %></p>
 
-  <li>
-    <strong>User:</strong>
-    <%=@user_name%>
-  </li>
+  </div>
+  <div class="card-footer text-muted">
 
-</ul>
+          <strong>Time Spent:</strong>
+          <a class="time-display" data-time =<%= @task.time_spent %>></a>
 
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>User:</strong>
+              <%=@task.user.name%>
+
+  </div>
+</div>
 <span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
 <span><%= link "Back", to: task_path(@conn, :index) %></span>

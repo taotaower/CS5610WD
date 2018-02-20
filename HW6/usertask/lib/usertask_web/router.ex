@@ -25,6 +25,8 @@ defmodule UsertaskWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/all_tasks", TaskController, :all_tasks
+    get "/task/edit_time", TaskController, :edit_time
     resources "/users", UserController
     resources "/tasks", TaskController
     post "/session", SessionController, :create

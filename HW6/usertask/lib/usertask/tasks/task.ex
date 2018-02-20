@@ -31,4 +31,10 @@ defmodule Usertask.Tasks.Task do
     |> Repo.preload(:user)
   end
 
+  def get_my_tasks!(id) do
+
+    Repo.get_by(Task, user_id: id)
+
+  end
+
 end

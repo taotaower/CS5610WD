@@ -5,7 +5,7 @@ defmodule Usertask.Tasks do
 
   import Ecto.Query, warn: false
   alias Usertask.Repo
-
+  alias Usertask.Tasks
   alias Usertask.Tasks.Task
 
   @doc """
@@ -19,6 +19,22 @@ defmodule Usertask.Tasks do
   """
   def list_tasks do
     Repo.all(Task)
+    |> Repo.preload(:user)
+  end
+
+
+  def list_my_tasks(id) do
+    query = from t in Task,
+                 where: t.user_id == ^id,
+                 select: t
+    res = Repo.all(query)
+    |> Repo.preload(:user)
+
+ #   IO.inspect res
+ #   IO.inspect List.first(res)[:id]
+
+    res
+
   end
 
   @doc """
@@ -35,7 +51,12 @@ defmodule Usertask.Tasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(id) do
+
+    Repo.get!(Task, id)
+
+    |> Repo.preload(:user)
+  end
 
   @doc """
   Creates a task.
