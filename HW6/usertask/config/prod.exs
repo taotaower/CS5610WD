@@ -57,7 +57,7 @@ config :logger, level: :info
 # start per endpoint:
 #
 config :usertask, UsertaskWeb.Endpoint, server: true
-#
+
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
