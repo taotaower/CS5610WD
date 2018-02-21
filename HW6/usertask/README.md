@@ -1,3 +1,30 @@
+# Design 
+
+User_Table:
+Email field is unique, cannot be duplicate  
+
+Task_Table:
+One Task related to One user, thus a user can have mutiple tasks
+
+time field is integer, it means how many 15 mins user spent on one task,  e.g. if user spent 45 mins , the field will be 3  
+
+
+Back-end Design:
+
+Use regex expression to check email format valid or not.
+
+One user can check himself/herself tasks, or all tasks in the system.
+
+front-end Design:
+
+Use js to calculate time to display.
+
+Use bootstrap to make display more beautiful.
+
+
+
+
+
 # Usertask
 
 To start your Phoenix server:
