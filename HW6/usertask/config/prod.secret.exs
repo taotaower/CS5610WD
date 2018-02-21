@@ -7,7 +7,7 @@ config :usertask, UsertaskWeb.Endpoint,
 # Configure your database
 config :usertask, Usertask.Repo,
        adapter: Ecto.Adapters.Postgres,
-       username: "usertask",
+       username: "zikun",
        password: "123456",
        database: "usertask_prod",
        pool_size: 15
