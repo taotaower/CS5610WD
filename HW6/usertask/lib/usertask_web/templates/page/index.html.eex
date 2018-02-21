@@ -5,7 +5,6 @@
         Email
         <input type="email" name="email" placeholder="user@example.com" >
       </div>
-      <!-- passwords come later -->
       <div class="form-group">
         <button class="btn btn-primary">Log in</button>
         <%= link "Register", to: user_path(@conn, :new) %>
