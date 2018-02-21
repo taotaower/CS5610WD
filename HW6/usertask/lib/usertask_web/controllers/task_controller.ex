@@ -82,7 +82,7 @@ defmodule UsertaskWeb.TaskController do
   end
 
   defp get_users() do
-    Enum.map(Usertask.Accounts.list_users, &{&1.name, &1.id})
+    Enum.map(Usertask.Accounts.list_users, &{&1.name <> " - " <> &1.email, &1.id})
   end
 
   def get_user_name(user_id) do
