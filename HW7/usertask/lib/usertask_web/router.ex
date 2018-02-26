@@ -38,6 +38,8 @@ defmodule UsertaskWeb.Router do
   scope "/api/v1", UsertaskWeb do
     pipe_through :api
     resources "/relations", RelationController, except: [:new, :edit]
+    resources "/timeblocks", TimeBlockController, except: [:new, :edit]
+
   end
 
   # Other scopes may use custom stacks.

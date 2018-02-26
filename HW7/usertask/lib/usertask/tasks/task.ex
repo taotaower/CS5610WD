@@ -4,6 +4,7 @@ defmodule Usertask.Tasks.Task do
   alias Usertask.Tasks.Task
   alias Usertask.Accounts.User
   alias Usertask.Repo
+  alias Usertask.Tasks.TimeBlock
 
 
   schema "tasks" do
@@ -13,6 +14,7 @@ defmodule Usertask.Tasks.Task do
     field :time_spent, :integer
    # field :user_id, :id
     belongs_to :user, Usertask.Accounts.User
+    has_many :timeblocks, TimeBlock
 
     timestamps()
   end
