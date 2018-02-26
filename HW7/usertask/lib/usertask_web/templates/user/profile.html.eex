@@ -1,0 +1,38 @@
+
+<h2>Your Managers</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Name</th>
+
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @managers do %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.name %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+
+<h2>Your Underlings</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @underlings do %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.name %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
