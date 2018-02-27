@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, task_path(@conn, :update, @task))|> Map.put(:time, @task.time_spent) %>
 
-<span><%= link "Back", to: task_path(@conn, :index) %></span>
+

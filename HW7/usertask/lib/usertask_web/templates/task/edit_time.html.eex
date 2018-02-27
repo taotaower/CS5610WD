@@ -1,5 +1,4 @@
-<h2>Edit Task</h2>
+<h2>Edit Timestamp</h2>
 
-<%= render "formTime.html", Map.put(assigns, :action, task_path(@conn, :update, @task)) %>
 
-<span><%= link "Back", to: task_path(@conn, :index) %></span>
+<%= render "formTime.html", Map.put(assigns, :action, @url)|> Map.put(:task_id, @task.id) %>

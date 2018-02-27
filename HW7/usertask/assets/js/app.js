@@ -114,6 +114,7 @@ function selected(user_id) {
     });
     console.log(text);
     console.log(relation_path);
+
     $.ajax(relation_path, {
         method: "post",
         dataType: "json",
@@ -121,6 +122,7 @@ function selected(user_id) {
         data: text,
         success: (resp) => { set_button(user_id, resp.data.id); },
 });
+
 }
 
 
@@ -160,3 +162,132 @@ function init_manager() {
 }
 
 $(init_manager);
+
+
+/////////////////////////////////////////////////////////////////////
+
+
+
+$("#tracker-trigger").on("click", "#start-tracker", function() {
+
+
+
+    var dt = new Date();
+    var month = parseInt(dt.getMonth()) + 1;
+    var day = dt.getDate();
+    if (month < 10){
+        month = "0" + month
+    }
+    if (day < 10){
+        day = "0" + day
+    }
+    var hours = dt.getHours();
+
+    if (hours < 10){
+        hours = "0" + hours
+    }
+
+    var mins = dt.getMinutes();
+
+    if (mins < 10){
+        mins = "0" + mins
+    }
+
+    var sec = dt.getSeconds();
+
+    if (sec < 10){
+        sec = "0" + sec
+    }
+
+
+    var startTime =dt.getFullYear() + "-" + month + "-"+ day +"T" + hours + ":" + mins + ":" + sec + "Z";
+
+    $(this).val(startTime);
+
+
+});
+
+
+
+$("#tracker-trigger").on("click", "#end-tracker", function() {
+
+    var ss = $("#start-tracker");
+    var startTime = ss.val();
+    if (startTime === "") {
+        alert("You have to click 'Start Tracker' button first");
+        return
+    }
+
+    ss.val("");
+
+    var dt = new Date();
+    var month = parseInt(dt.getMonth()) + 1;
+    var day = dt.getDate();
+    if (month < 10) {
+        month = "0" + month
+    }
+    if (day < 10) {
+        day = "0" + day
+    }
+    var hours = dt.getHours();
+
+    if (hours < 10) {
+        hours = "0" + hours
+    }
+
+    var mins = dt.getMinutes();
+
+    if (mins < 10) {
+        mins = "0" + mins
+    }
+
+    var sec = dt.getSeconds();
+
+    if (sec < 10) {
+        sec = "0" + sec
+    }
+
+
+    var endTime = dt.getFullYear() + "-" + month + "-" + day + "T" + hours + ":" + mins + ":" + sec + "Z";
+
+    console.log(endTime);
+
+
+    var task_id = current_task_id;
+
+
+    let text = JSON.stringify({
+        time_block: {
+            end_time: endTime,
+            start_time: startTime,
+            task_id: task_id
+
+        },
+    });
+
+    console.log(text);
+
+
+    $.ajax(time_block_path, {
+        method: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: text,
+        success: (resp) =>  { window.location.reload(true) },
+});
+});
+
+
+$(".delete-block").on("click",function () {
+
+    var id = $(this).val();
+    $.ajax(time_block_path + "/" + id, {
+        method: "delete" ,
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: "",
+        success: (resp) => { window.location.reload(true) },
+});
+
+});
+

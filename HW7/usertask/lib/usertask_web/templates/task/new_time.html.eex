@@ -1,0 +1,3 @@
+<h2>New Timestamp</h2>
+
+<%= render "formTime.html", Map.put(assigns, :action, "/create-block")|> Map.put(:task_id, @task.id) %>

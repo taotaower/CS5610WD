@@ -28,11 +28,16 @@ defmodule UsertaskWeb.Router do
     get "/all_tasks", TaskController, :all_tasks
     get "/task/edit_time", TaskController, :edit_time
     get "/report", TaskController, :report
+    get "/tracker/:id", TaskController, :tracker
+    get "/block/:id", TaskController, :new_time_block
+    get "/edit_block/:id", TaskController, :edit_time_block
     get "/profile", UserController, :profile
     resources "/users", UserController
     resources "/tasks", TaskController
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
+    post "/create-block", TaskController, :create_time_block
+    put "/update-block/:id", TaskController, :update_time_block
   end
 
   scope "/api/v1", UsertaskWeb do

@@ -10,6 +10,7 @@ defmodule Usertask.Tasks do
   alias Usertask.Accounts
   alias Usertask.Accounts.User
   alias Usertask.Accounts.Relation
+  alias Usertask.Tasks.TimeBlock
 
   @doc """
   Returns the list of tasks.
@@ -37,6 +38,21 @@ defmodule Usertask.Tasks do
  #   IO.inspect List.first(res)[:id]
 
     res
+
+  end
+
+
+  def list_blocks(id) do
+
+    Repo.all(from tb in TimeBlock,
+                where: tb.task_id == ^id,
+                select: tb)
+
+
+    #   IO.inspect res
+    #   IO.inspect List.first(res)[:id]
+
+
 
   end
 
