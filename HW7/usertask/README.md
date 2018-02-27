@@ -1,20 +1,30 @@
 # Usertask
 
-To start your Phoenix server:
+Design For task1 Managers:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+One user can have multiple managers and multiple underlings,
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+User can assign or unassign there manager in "set manager" page.
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+On user's home page user is able to see there  managers and underlings.
 
-## Learn more
+User can only assign  their underlings' a task on "New task page".
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+User can see and edit tasks , which they assigned to their underlings, on "Task Report Page",
+
+When user click "show" link on  "Task Report Page", it will direct to a task's details and its timestamp
+
+
+Design For task2 Detailed Time Spent:
+
+On "My Task" Page user can see list of his/her tasks.
+
+When user click "Task Tracker" button on "My Task" Page, it will direct to "Task Tracker" page
+
+On "Task Tracker" page, user can press a "start working" and "stop working" button on the "Task Tracker" page,
+
+and this should create a block of time spent working on the task,
+
+user also can manually add timestamp via "add timestamp" button.
+
+user can manually edit list of timestamp showed on "Task Tracker" page.
