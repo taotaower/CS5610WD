@@ -1,6 +1,6 @@
 # Usertask
 
-Design For task1 Managers:
+## Design For task1 Managers:
 
 One user can have multiple managers and multiple underlings,
 
@@ -15,7 +15,7 @@ User can see and edit tasks , which they assigned to their underlings, on "Task 
 When user click "show" link on  "Task Report Page", it will direct to a task's details and its timestamp
 
 
-Design For task2 Detailed Time Spent:
+## Design For task2 Detailed Time Spent:
 
 On "My Task" Page user can see list of his/her tasks.
 
