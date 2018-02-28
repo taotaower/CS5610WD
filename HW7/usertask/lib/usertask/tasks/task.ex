@@ -23,7 +23,7 @@ defmodule Usertask.Tasks.Task do
   def changeset(%Task{} = task, attrs) do
     task
     |> cast(attrs, [:title,:desc, :time_spent, :complete,:user_id])
-    |> validate_required([:desc,:title, :time_spent, :complete])
+    |> validate_required([:desc,:title, :time_spent, :complete,:user_id])
   end
 
   def get_task!(id) do
