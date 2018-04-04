@@ -12,7 +12,8 @@ defmodule UsertaskWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
+    new_user = %{name: user_params["name"], email: user_params["email"], password_hash: Comeonin.Argon2.hashpwsalt(user_params["password"]) }
+    with {:ok, %User{} = user} <- Accounts.create_user(new_user) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", user_path(conn, :show, user))
@@ -35,7 +36,8 @@ defmodule UsertaskWeb.UserController do
   def delete(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     with {:ok, %User{}} <- Accounts.delete_user(user) do
-      send_resp(conn, :no_content, "")
+      users = Accounts.list_users()
+      render(conn, "index.json", users: users)
     end
   end
 end

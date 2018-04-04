@@ -16,9 +16,9 @@ defmodule Usertask.Accounts.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:email, :name, :password])
+    |> cast(attrs, [:email, :name, :password_hash])
     |> validate_required([:email, :name])
-    |> validate_format(:email, ~r/.*?@.*?.com/)
+   # |> validate_format(:email, ~r/.*?@.*?.com/)
     |> unique_constraint(:email)
   end
 end

@@ -50,6 +50,7 @@ defmodule Usertask.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
+    IO.inspect attrs
     %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
@@ -103,8 +104,8 @@ defmodule Usertask.Accounts do
   end
 
 
-  def get_and_auth_user(name, pass) do
-    user = Repo.one(from u in User, where: u.name == ^name)
+  def get_and_auth_user(email, pass) do
+    user = Repo.one(from u in User, where: u.email == ^email)
     Comeonin.Argon2.check_pass(user, pass)
   end
 

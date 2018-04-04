@@ -25,8 +25,10 @@ defmodule UsertaskWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/all_tasks", TaskController, :all_tasks
-    get "/task/edit_time", TaskController, :edit_time
+    get "/register", PageController, :index
+    get "/my-tasks", PageController, :index
+    get "/new-task", PageController, :index
+    get "/edit-task", PageController, :index
     resources "/users", UserController
     resources "/tasks", TaskController
     post "/session", SessionController, :create
@@ -46,6 +48,7 @@ defmodule UsertaskWeb.Router do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
     resources "/tasks", TaskController, except: [:new, :edit]
+    delete "/tasks", TaskController, :delete
     post "/token", TokenController, :create
   end
 end

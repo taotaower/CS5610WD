@@ -1,8 +1,10 @@
 defmodule UsertaskWeb.TaskView do
   use UsertaskWeb, :view
   alias UsertaskWeb.TaskView
+  alias UsertaskWeb.UserView
 
   def render("index.json", %{tasks: tasks}) do
+
     %{data: render_many(tasks, TaskView, "task.json")}
   end
 
@@ -15,6 +17,8 @@ defmodule UsertaskWeb.TaskView do
       complete: task.complete,
       desc: task.desc,
       title: task.title,
-      time_spent: task.time_spent}
+      time_spent: task.time_spent,
+      user_id: task.user_id,
+      user: render_one(task.user, UserView, "user.json")}
   end
 end

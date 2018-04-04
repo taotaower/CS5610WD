@@ -27,58 +27,9 @@ import api from './api';
 import taskuser_init from "./user-task/user-task";
 
 
-$("#change-time").on("click", "#add-time", function() {
-    var timeInput = $("#task_time_spent");
-    var time = timeInput.val();
-
-    time = parseInt(time) + 1;
-
-    timeInput.attr("value",time);
-
-    time = time * 15;
-
-    var line =  convertMinsToHrsMins(time);
-    $('#time-display').text(line)
-
-});
-
-$("#change-time").on("click", "#reduce-time", function() {
-    var timeInput = $("#task_time_spent");
-    var time = timeInput.val();
-
-    time = parseInt(time) - 1;
-    if (time <0){
-        return
-    }
-    timeInput.attr("value",time);
-
-    time = time * 15;
-
-
-    var line =  convertMinsToHrsMins(time);
-    $('#time-display').text(line)
-
-});
-
-$('.time-display').each(function() {
-    var time = $(this).attr('data-time');
-    var line = convertMinsToHrsMins(parseInt(time) * 15);
-
-    $(this).text(line);
-
-});
-
-function convertMinsToHrsMins(mins) {
-    let h = Math.floor(mins / 60);
-    let m = mins % 60;
-
-    return `${h} hour(s) ${m} min(s)`;
-
-}
-
-
 $(function() {
-    api.request_posts();
     api.request_users();
-    microblog_init(store);
+    api.request_tasks();
+    taskuser_init(store);
+    window.url_location = window.location.href;
 });
