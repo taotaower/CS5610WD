@@ -1,0 +1,88 @@
+<div class="row">
+
+<h2 class="col-3">Task Tracker</h2>
+      <span class="col-4 float-right"><%= link "Edit This Task", to: task_path(@conn, :edit, @task), class: "btn btn-primary btn-xs"%></span>
+
+      <div class="input-group-prepend float-left col-5" id ="tracker-trigger" >
+        <%= link "Add Timestamp", to: "#{"/block/"}#{ @task.id }", method: :get , class: "btn btn-outline-danger " %>
+        &nbsp;&nbsp;&nbsp;
+        <button id = "start-tracker" class="btn btn-outline-secondary " type="button" value="">Start Tracker</button>
+        <button id = "end-tracker" class="btn btn-outline-secondary " type="button">End Tracker</button>
+      </div>
+</div>
+
+<script>
+ window.current_task_id = "<%= @task.id %>";
+ window.time_block_path = "<%= time_block_path(@conn, :index) %>";
+</script>
+<div class="card text-center">
+  <div class="card-header">
+  <strong>Task ID:</strong>
+  <%= @task.id %>
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <strong>Complete:</strong>
+                  <%= if @task.complete do %>
+                     Yes
+                   <% else %>
+                     No
+                   <% end %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Title: <%= @task.title %></h5>
+    <p class="card-text"><%= @task.desc %></p>
+
+  </div>
+  <div class="card-footer text-muted">
+
+          <strong hidden>Time Spent:</strong>
+          <a class="time-display" data-time =<%= @task.time_spent %> hidden></a>
+
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>User:</strong>
+              <%=@task.user.name%> - <%=@task.user.email%>
+
+  </div>
+</div>
+
+<div id="input-time">
+
+<h2>Timestamps</h2>
+
+
+
+</div>
+
+
+<div id="time-blocks">
+<table class="table">
+  <thead>
+    <tr>
+
+      <th>Start Time</th>
+      <th>End Time</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for block <- @blocks do %>
+    <tr>
+      <td><%= block.start_time |> Ecto.DateTime.cast! %></td>
+      <td><%= block.end_time |> Ecto.DateTime.cast! %></td>
+
+      <td class="text-right">
+        <%= link "Edit", to: "#{"/edit_block/"}#{ block.id }", method: :get , class: "btn btn-success " %>
+        <button value="<%= block.id%>" class="btn btn-danger btn-xs delete-block" > Delete</button>
+
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+
+</div>
+
+<span hidden><%= link "Back to Home", to: task_path(@conn, :index) %></span>
